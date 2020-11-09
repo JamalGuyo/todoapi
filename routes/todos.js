@@ -21,5 +21,33 @@ router.post('/', async(req, res) => {
         console.log(error)
     }
 })
+// show route
+router.get('/:todoId', async(req, res)=>{
+    const {todoId} = req.params;
+    try{
+        const foundTodo = await db.Todo.findById(todoId);
+        res.json(foundTodo);
+    }catch(error){
+        res.status(404).send('Todo Not Found, double check the id :)');
+    }
+})
+// update route
+router.put('/:todoId', async(req, res) => {
+    try{
+        const todo = await db.Todo.findOneAndUpdate({_id: req.params.todoId}, req.body, {new: true});
+        res.json(todo);
+    }catch(error){
+        res.send(error)
+    }
+})
+// delete route
+router.delete('/:todoId', async(req, res) => {
+    try{
+        await db.Todo.findByIdAndDelete(req.params.todoId);
+        res.json({message:'deleted successfully'})
+    }catch(error){
+        res.send(error)
+    }
+})
 // export todo routes
 module.exports = router;
