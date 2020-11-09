@@ -1,6 +1,8 @@
 const express = require('express'),
 app = express();
 
+// express configs
+app.use(express.urlencoded({extended: true}))
 // import routes
 const todoRoutes = require('./routes/todos');
 

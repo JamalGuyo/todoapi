@@ -12,5 +12,14 @@ router.get('/', async(req, res) => {
        res.send(error)
    }
 })
+// post route
+router.post('/', async(req, res) => {
+    try{
+        const todo = await db.Todo.create(req.body);
+        res.status(201).json(todo);
+    }catch(error){
+        console.log(error)
+    }
+})
 // export todo routes
 module.exports = router;
